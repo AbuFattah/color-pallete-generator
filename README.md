@@ -8,6 +8,8 @@ USAGE:
   
   3) You can navigate to your library by clicking on the 'LIBRARY' button.
   
+  4) Just click on the color code to copy. Enjoy!! 
+  
   
   
   
