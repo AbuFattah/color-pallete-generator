@@ -281,3 +281,83 @@ input[type="range"]::-moz-range-thumb {
   border: none;
   cursor: pointer;
 }
+
+/* LIBRARY CSS */
+
+.library-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.407);
+  visibility: hidden;
+}
+
+.library-show {
+  visibility: visible;
+}
+
+.library-popup {
+  position: relative;
+  text-align: center;
+  width: 400px;
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 20px;
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
+.library-popup .close {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: 0;
+  top: 0;
+}
+
+.pallete {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin: 2.2rem 0;
+}
+
+.pallete h5 {
+  pointer-events: none;
+}
+/* .library-name {
+} */
+
+.pallete-colors {
+  pointer-events: none;
+  /* flex: 3; */
+  display: flex;
+}
+.pallete-color {
+  pointer-events: none;
+  width: 30px;
+  height: 40px;
+}
+
+.color-1 {
+  background-color: #181738;
+}
+.color-2 {
+  background-color: #504d9a;
+}
+.color-3 {
+  background-color: #173833;
+}
+.color-4 {
+  background-color: #4ca933;
+}
+.color-5 {
+  background-color: #ce7f7f;
+}
