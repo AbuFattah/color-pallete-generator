@@ -172,13 +172,13 @@ cp.sliders.forEach((s) => {
   if (s.classList.contains("hue-input")) {
     s.addEventListener("input", updateAllColor);
   } else if (s.classList.contains("brightness-input")) {
-    s.addEventListener("input", updateSat);
+    s.addEventListener("input", updateSatSlider);
   } else {
-    s.addEventListener("input", updateBright);
+    s.addEventListener("input", updateBrightSlider);
   }
 });
 
-function updateSat(e) {
+function updateSatSlider(e) {
   const sliderDiv = e.target.parentElement;
   const parentDiv = e.target.parentElement.parentElement;
   const hex = parentDiv.children[0].textContent;
@@ -195,7 +195,7 @@ function updateSat(e) {
   updateBg(sliderDiv, parentDiv, divColor);
 }
 
-function updateBright(e) {
+function updateBrightSlider(e) {
   const sliderDiv = e.target.parentElement;
   const parentDiv = e.target.parentElement.parentElement;
   const hex = parentDiv.children[0].textContent;
@@ -341,6 +341,8 @@ const libraryContainer = document.querySelector(".library-container");
 const libraryClose = libraryContainer.querySelector(".close");
 const libPopup = document.querySelector(".library-popup");
 
+const lockBtns = document.querySelectorAll(".lock");
+
 saveBtn.addEventListener("click", function () {
   document.querySelector(".save-popup").classList.toggle("active");
   saveContainer.classList.toggle("active");
@@ -363,7 +365,7 @@ submitBtn.addEventListener("click", function (e) {
   }
   saveInput.value = "";
 });
-
+// adding clickability to each palletes
 libPopup.addEventListener("click", (e) => {
   if (e.target.classList.contains("pallete")) {
     let currPalleteName = e.target.firstElementChild.textContent;
@@ -391,9 +393,7 @@ libPopup.addEventListener("click", (e) => {
   }
 });
 
-const lockBtn = document.querySelectorAll(".lock");
-
-lockBtn.forEach((lock) => {
+lockBtns.forEach((lock) => {
   lock.addEventListener("click", function (e) {
     e.target.firstElementChild.classList.toggle("fa-lock-open");
     e.target.firstElementChild.classList.toggle("fa-lock");
@@ -470,5 +470,5 @@ function generatePalleteUI(name, colors) {
   });
 
   pallete.appendChild(palleteClrs);
-  libPopup.appendChild(pallete);
+  libPopup.lastElementChild.appendChild(pallete);
 }
