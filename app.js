@@ -358,11 +358,15 @@ submitBtn.addEventListener("click", function (e) {
   saveContainer.classList.toggle("active");
   let name = saveInput.value;
   let colors = currentColors();
-  savePaletteToLS();
 
   if (name !== "") {
-    generatePalleteUI(name, colors);
+    const palleteNr =
+      JSON.parse(localStorage.getItem("paletteList"))?.length || 0;
+    console.log(palleteNr);
+
+    generatePalleteUI(name, colors, palleteNr);
   }
+  savePaletteToLS();
   saveInput.value = "";
 });
 // adding clickability to each palletes
@@ -443,16 +447,20 @@ libraryClose.addEventListener("click", () => {
 
 // generating UI of library
 const paletteList = JSON.parse(localStorage.getItem("paletteList")) || [];
-for (let palette of paletteList) {
-  let { name, colors } = palette;
+
+for (let i = 0; i < paletteList.length; i++) {
+  let { name, colors } = paletteList[i];
+  palleteNr = i;
   //function to create each pallete
-  generatePalleteUI(name, colors);
+  generatePalleteUI(name, colors, palleteNr);
 }
 
-function generatePalleteUI(name, colors) {
+function generatePalleteUI(name, colors, palleteNr) {
   name = name.toUpperCase();
   const pallete = document.createElement("div");
   pallete.classList.add("pallete");
+
+  pallete.setAttribute("data-pallete-no", palleteNr);
 
   const palleteName = document.createElement("h5");
   palleteName.textContent = name;
@@ -462,6 +470,9 @@ function generatePalleteUI(name, colors) {
   const palleteClrs = document.createElement("div");
   palleteClrs.classList.add("pallete-colors");
 
+  const deletePalette = document.createElement("div");
+  deletePalette.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
+  deletePalette.className = "delete-icon";
   colors.forEach((x) => {
     const palleteColor = document.createElement("div");
     palleteColor.className = "pallete-color";
@@ -470,5 +481,31 @@ function generatePalleteUI(name, colors) {
   });
 
   pallete.appendChild(palleteClrs);
+  pallete.appendChild(deletePalette);
   libPopup.lastElementChild.appendChild(pallete);
+}
+
+// adding delete functionalities
+
+const libPopupContainer = document.querySelector(".lib-popup-container");
+
+libPopupContainer.addEventListener("click", (e) => {
+  if (e.target.classList.contains("delete-icon")) {
+    window.confirm("Palette will be deleted");
+    removePalleteFromLS(e.target.parentElement);
+    e.target.parentElement.remove();
+  }
+});
+
+function removePalleteFromLS(palleteElem) {
+  let paletteName = palleteElem.children[0].textContent;
+  let paletteList = JSON.parse(localStorage.getItem("paletteList"));
+
+  paletteList.forEach((paletteItem, index) => {
+    if (paletteItem.name == paletteName) {
+      paletteList.splice(index, 1);
+    }
+  });
+
+  localStorage.setItem("paletteList", JSON.stringify(paletteList));
 }
