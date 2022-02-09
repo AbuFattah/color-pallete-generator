@@ -380,7 +380,7 @@ libPopup.addEventListener("click", (e) => {
     cp.colorDivs.forEach((div, index) => {
       let hexText = div.children[0];
       let customizerBtn = div.children[1].children[0];
-      let lockBtn = div.children[1].children[0];
+      let lockBtn = div.children[1].children[1];
 
       currColor = colors[index];
 
